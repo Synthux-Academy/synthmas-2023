@@ -1,0 +1,5 @@
+tests/
+docs/
+*.wav
+*.m
+pluck.c

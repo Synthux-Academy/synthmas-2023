@@ -1,0 +1,9 @@
+[submodule "BowBox/DaisyExamples"]
+	path = BowBox/DaisyExamples
+	url = https://github.com/electro-smith/DaisyExamples.git
+[submodule "dattopan/heavylib"]
+	path = dattopan/heavylib
+	url = https://github.com/Wasted-Audio/heavylib.git
+[submodule "dattopan/libdaisy"]
+	path = dattopan/libdaisy
+	url = https://github.com/electro-smith/libDaisy.git
