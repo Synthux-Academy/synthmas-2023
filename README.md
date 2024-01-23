@@ -2,8 +2,9 @@
 At the end of 2023 we ran a contest among community members. The challenge was to design a touch-controlled synth using the Daisy Seed and MPR121 sensor. Here are the final results
 
 WINNERS  
-[Soundscpr](https://github.com/jonwaterschoot/simple-touch-soundscpr) by [Jon Waterschoot](https://www.jonwtr.be/)
-Jon worked with Plugdata to create a soundscape instrument that has both an input for external recordings and an internal synth voice with built in effects. This is the first iteration on a bigger project Jon is developing. You should definitely check out his Notion page to see the bigger picture.
+[Soundscpr](https://github.com/jonwaterschoot/simple-touch-soundscpr) by [Jon Waterschoot](https://www.jonwtr.be/)  
+Jon worked with Plugdata to create a soundscape instrument that has both an input for external recordings and an internal synth voice with built in effects. This is the first iteration on a bigger project Jon is developing. You should definitely check out his Notion page to see the bigger picture.  
+  
 - [Modular Touch Synth](https://github.com/skngh/ModularTouchSynth) by [Sam Knight](https://instagram.com/imsamknight)
 Sam took a super complex challenge on himself - designing a patchable FM synth using touch pads! The instrument incorporates three oscillators that can be patched into each other, an effects chain with chorus and delay as well as a 16 step sequencer. Yep, that makes for quite a UX challenge as well, which he tackled with the switches to shift between editing and playing modes. Check out the video below to see how the instrument operates and download the code to give it a try yourself!
 - [Chord Buffer](https://github.com/filipforsstrom/chord-buffer) by [Filip Forsström](https://www.instagram.com/ljudvagg)
