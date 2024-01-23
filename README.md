@@ -1,7 +1,7 @@
 # Synthmas 2023 Instruments
 At the end of 2023 we ran a contest among community members. The challenge was to design a touch-controlled synth using the Daisy Seed and MPR121 sensor. Here are the final results
 
-WINNERS:-
+WINNERS  
 [Soundscpr](https://github.com/jonwaterschoot/simple-touch-soundscpr) by [Jon Waterschoot](https://www.jonwtr.be/)
 Jon worked with Plugdata to create a soundscape instrument that has both an input for external recordings and an internal synth voice with built in effects. This is the first iteration on a bigger project Jon is developing. You should definitely check out his Notion page to see the bigger picture.
 - [Modular Touch Synth](https://github.com/skngh/ModularTouchSynth) by [Sam Knight](https://instagram.com/imsamknight)
