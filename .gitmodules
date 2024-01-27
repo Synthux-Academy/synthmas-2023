@@ -7,3 +7,6 @@
 [submodule "dattopan/libdaisy"]
 	path = dattopan/libdaisy
 	url = https://github.com/electro-smith/libDaisy.git
+[submodule "DaisyTouchFunctionGenerator"]
+	path = DaisyTouchFunctionGenerator
+	url = https://github.com/erezlevanon/DaisyTouchFunctionGenerator.git
