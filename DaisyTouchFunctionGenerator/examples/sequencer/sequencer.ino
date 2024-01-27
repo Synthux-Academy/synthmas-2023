@@ -1,4 +1,4 @@
-// LFO -> Filter Example for DaisyTouchFunctionGeneartor
+// Sequencer Example for DaisyTouchFunctionGeneartor
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// LIBRARIES & HARDWARE ////////////////////
@@ -22,19 +22,41 @@ static AKnob s_knob(A(S30));
 /////////////////// Generator instance /////////////////////
 static TouchGenerator generator;
 static MoogLadder filter;
+static Oscillator osc;
+
+// Define note sequence.
+constexpr size_t kNumNotes = 16;
+static float notes[kNumNotes] = {
+	220.00,
+	261.63,
+	293.66,
+	311.13,
+	329.63,
+	392.00,
+	220.00 * 2.0,
+	261.63 * 2.0,
+	293.66 * 2.0,
+	311.13 * 2.0,
+	329.63 * 2.0,
+	392.00 * 2.0,
+	220.00 * 4.0,
+	261.63 * 4.0,
+	293.66 * 4.0,
+	311.13 * 4.0,
+};
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// AUDIO CALLBACK (PATCH) //////////////////
 void AudioCallback(float** in, float** out, size_t size) {
 	// Update generator properties.
-	generator.SetFreq(powf(f_knob.Process(), 4) * 3.0f);
+	generator.SetFreq(powf(f_knob.Process(), 4) * 5.0f);
 	generator.SetSmooth(s_knob.Process());
-	// Update filter properties
-	float max_cutoff = c_knob.Process() * 1023.0f;
+	generator.SetRange(0.0f, c_knob.Process() * (float(kNumNotes) - 0.00000001f));
 	for (size_t i = 0; i < size; i++) {
-		filter.SetFreq(1023.0 - max_cutoff * generator.Process());
-		out[0][i] = filter.Process(in[0][i]);
-		out[1][i] = filter.Process(in[1][i]);
+		osc.SetFreq(notes[int(generator.Process())]);
+		float value = filter.Process(osc.Process());
+		out[0][i] = value;
+		out[1][i] = value;
 	}
 }
 
@@ -49,11 +71,16 @@ void setup() {
 
 	// Init generator.
 	generator.Init(sample_rate);
-	generator.SetRange(0.0, 1.0);
+	generator.SetRange(0.0, float(kNumNotes) - 0.0001f);
 	// Allow generator debug prints
 	generator.setDebug(true);
 
+	osc.Init(sample_rate);
+	osc.SetWaveform(Oscillator::WAVE_SAW);
+	osc.SetAmp(1.0f);
+
 	filter.Init(sample_rate);
+	filter.SetFreq(800.0f);
 
 	// BEGIN CALLBACK
 	DAISY.begin(AudioCallback);

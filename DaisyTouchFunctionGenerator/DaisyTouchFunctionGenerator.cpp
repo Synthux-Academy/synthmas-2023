@@ -48,31 +48,31 @@ namespace touchgenerator {
 
 	void TouchGenerator::OnPadTouch(uint16_t pad) {
 		const bool has_touch = touch_.HasTouch();
-		if (!recording_touch_sequence && has_touch) {
+		if (!recording_touch_sequence_ && has_touch) {
 			if (debug_) {
 				Serial.println("Recording Function");
 			}
 			for (int i = 0; i < kNumSegments; i++) {
-				vals_[i] = 0;
+				durations_[i] = 0;
 				starts_[i] = 0;
 			}
 		}
 		if (pad < kNumSegments) {
 			starts_[pad] = millis();
 		}
-		recording_touch_sequence = has_touch;
+		recording_touch_sequence_ = has_touch;
 	}
 
 	void TouchGenerator::OnPadRelease(uint16_t pad) {
 		const bool has_touch = touch_.HasTouch();
-		if (recording_touch_sequence && !has_touch) {
-			size_t cur_max = 0;
+		if (recording_touch_sequence_ && !has_touch) {
+			cur_durations_max_ = 0;
 			size_t cur_millis = millis();
 			for (int i = 0; i < kNumSegments; i++) {
-				vals_[i] = starts_[i] == 0 ? 0 : cur_millis - starts_[i];
-				if (vals_[i] > cur_max) cur_max = vals_[i];
+				durations_[i] = starts_[i] == 0 ? 0 : cur_millis - starts_[i];
+				if (durations_[i] > cur_durations_max_) cur_durations_max_ = durations_[i];
 			}
-			if (cur_max == 0) {
+			if (cur_durations_max_ == 0) {
 				if (debug_) {
 					Serial.print("Did not touch pads from 0 to ");
 					Serial.print(kNumSegments - 1);
@@ -81,9 +81,7 @@ namespace touchgenerator {
 				return;
 			}
 
-			for (int i = 0; i < kNumSegments; i++) {
-				cur_func_[i] = float(vals_[i]) * (max_val_ - min_val_) / float(cur_max) + min_val_;
-			}
+			UpdateFunctionFromDurations();
 
 			if (debug_) {
 				// Print generated function
@@ -134,7 +132,13 @@ namespace touchgenerator {
 				Serial.println("]");
 			}
 		}
-		recording_touch_sequence = has_touch;
+		recording_touch_sequence_ = has_touch;
+	}
+
+	void TouchGenerator::UpdateFunctionFromDurations() {
+		for (int i = 0; i < kNumSegments; i++) {
+			cur_func_[i] = float(durations_[i]) * (max_val_ - min_val_) / float(cur_durations_max_) + min_val_;
+		}
 	}
 
 	float TouchGenerator::Process() {
@@ -150,6 +154,7 @@ namespace touchgenerator {
 	void TouchGenerator::SetRange(float min_val, float max_val) {
 		min_val_ = min_val;
 		max_val_ = max_val;
+		if (!recording_touch_sequence_) UpdateFunctionFromDurations();
 	}
 
 
