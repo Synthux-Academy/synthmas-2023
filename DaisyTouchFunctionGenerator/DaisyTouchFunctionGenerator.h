@@ -52,6 +52,7 @@ namespace touchgenerator {
 	private:
 		void OnPadTouch(uint16_t pad);
 		void OnPadRelease(uint16_t pad);
+		void UpdateFunctionFromDurations();
 
 		synthux::simpletouch::Touch touch_;
 		Oscillator osc_;
@@ -61,15 +62,16 @@ namespace touchgenerator {
 		float amp_ = 1.0f;
 		float min_val_ = -1.0f;
 		float max_val_ = 1.0f;
+		size_t cur_durations_max_;
 		bool debug_ = false;
 
 		// A represntation of the current set generated functino / waveform.
 		float cur_func_[kNumSegments] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
 		// Utility vars used to calculate cur_func from the touch seqeunce.
-		size_t vals_[kNumSegments] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+		size_t durations_[kNumSegments] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 		size_t starts_[kNumSegments] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-		bool recording_touch_sequence = false;
+		bool recording_touch_sequence_ = false;
 	};
 }  // namespace touchgenerator
