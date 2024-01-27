@@ -10,3 +10,5 @@
 [submodule "DaisyTouchFunctionGenerator"]
 	path = DaisyTouchFunctionGenerator
 	url = https://github.com/erezlevanon/DaisyTouchFunctionGenerator.git
+	recurse = true
+	fetchRecurseSubmodules = true
