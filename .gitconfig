@@ -1,1 +1,2 @@
-submodule.recurse = true
+[submodule]
+        recurse = true
